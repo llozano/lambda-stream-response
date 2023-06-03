@@ -2,21 +2,13 @@
 Streaming response with a AWS lambda
 
 ## Motivation
-AWS Lambda functions now support streaming the response. Some configuration is
-required, some terms and conditions but it's pretty cool feature.
+AWS Lambda functions now support streaming the response, which is a pretty cool feature. However, implementing a response streaming AWS Lambda for Node.js in _TypeScript_ can be a bit challenging. Since the `awslambda namespace` is set globally in the Node.js micro-environment that runs the lambda function, you may lose type verification support, autocomplete, and other conveniences that modern text editors provide. One not-so-appealing option is to split the implementation, keeping the parts with `awslambda` references in a _JavaScript_ file and the rest in _TypeScript_. This requires setting `allowJs: true`, and well, it's not ideal 😒.
 
-To implement a response streaming AWS Lambda for NodeJS in Typescript,
-the type verification support, autocomplete and other goodies that text editors
-automate for you these days will be missing since the `awslambda` namespace is
-been set globally in the NodeJS micro-environment that runs the lambda function.
-One ugly option is to split the implementation that contains all `awslambda` references
-into a _Javascript_ file and the rest done in _Typescript_, set `allowJs: true` and 😒... Yeah!, that sounds awful.
+To address this issue, I wrote a custom type `(src/@types/awslambda)` to keep the entire codebase in _TypeScript_. This way, when the code is transpiled, all references to the `awslambda namespace` remain clean and intact. No need of imports or including another 3rd-party library to your
+project.
 
-My motivation was to find a better way to keep all the code base in _Typescript_, so
-Wrote a custom type `(src/@types/awslambda)` to solve this problem. When code is transpiled
-all references to the `awslambda` namespace remained nice an clean.
+You can find the handler in the `report.ts` file.
 
-The handler can be found in the `report.ts` file.
 
 ## Getting Started
 
