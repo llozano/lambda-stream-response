@@ -1,3 +1,7 @@
+/**
+ * @author Leonardo Lozano <leono@duck.com>
+ */
+
 import { APIGatewayEvent, Context, Handler } from "aws-lambda";
 import { Writable } from 'stream';
 

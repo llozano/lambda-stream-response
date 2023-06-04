@@ -5,7 +5,7 @@ import { promisify } from 'util';
 import { transactionReport } from './queryRepo';
 
 const promisePipeline = promisify(pipeline);
-// awslambda is a global namespace added to the NodeJS environment
+// awslambda > global namespace added to the NodeJS environment
 exports.handler = awslambda.streamifyResponse(async (event: APIGatewayEvent,
   responseStream: Writable, context: Context) => {
     const { queryStringParameters } = event;
@@ -34,6 +34,7 @@ exports.handler = awslambda.streamifyResponse(async (event: APIGatewayEvent,
       requestStream = transactionReport({tz, fromDate, toDate});
     }
 
+    // awslambda > global namespace
     responseStream = awslambda.HttpResponseStream.from(responseStream, metadata);
 
     await promisePipeline(requestStream, responseStream);
